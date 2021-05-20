@@ -1,11 +1,25 @@
-<h1>Welcome to my blog</h1>
-<h3>I've written {{posts.count}} post{{posts.count|pluralize}}</h3>
+{% extends 'base.html' %}
+{% block content %}
 
+<div class="container text-center">
+  
+    <h1>Welcome to my blog</h1>
+    
+    <h3>I've written {{posts.count}} post{{posts.count|pluralize}}</h3>
+    <hr>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-4">
+            <a href="{% url 'detail' post.id %}">
+                <h2>{{post.title}}</h2>
+            </a>
+            <h6>{{post.createDate|date:"j F Y"}}</h6>
+            <p>{{post.text|truncatechars:100}}</p>
+            <br>
+        </div>
+        
+        {% endfor %}
+    </div>
+</div>
 
-{% for post in posts %}
-<a href="{% url 'detail' post.id %}">
-    <h2>{{post.title}}</h2>
-</a>
-<h6>{{post.createDate|date:"j F Y"}}</h6>
-<p>{{post.text|truncatechars:100}}</p>
-{% endfor %}
+{% endblock content %}
